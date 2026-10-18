@@ -1,11 +1,25 @@
-# Piante
+# Waterly
 
 App Android locale per ricordare quando annaffiare le piante di casa.
 Nessun account, nessun server: i dati (e le foto) restano sul telefono.
 
+## Screenshot
+
+| Le piante | Calendario | Dettaglio pianta |
+| --- | --- | --- |
+| ![Le piante](docs/01-piante.png) | ![Calendario](docs/02-calendario.png) | ![Dettaglio pianta](docs/04-dettaglio.png) |
+
+| Promemoria | Widget sulla home |
+| --- | --- |
+| ![Promemoria](docs/03-promemoria.png) | ![Widget](docs/05-widget.png) |
+
+I widget sono due — quadrato (2×2) e orizzontale (4×2), quest'ultimo con la settimana
+per esteso — e si aggiungono dall'home: pressione lunga → **Widget** → **Waterly**.
+Toccando il widget si apre l'app.
+
 ## Installare l'app
 
-1. Copia `Piante.apk` sul telefono (cavo USB, Google Drive, Telegram…).
+1. Copia `Waterly.apk` sul telefono (cavo USB, Google Drive, Telegram…).
 2. Aprilo dal telefono e consenti l'installazione da "origini sconosciute" se viene chiesto.
 3. Alla prima apertura vai su **Promemoria** → accendi **Notifica serale**.
 
@@ -51,7 +65,9 @@ native stanno in `app.json`.
 ```
 src/app/          schermate (Expo Router, file-based)
 src/components/   UI riusabile (avatar, riga pianta, bottoni)
-src/lib/          tipi, date, preset specie, store, notifiche, foto
+src/lib/          tipi, date, preset specie, store, notifiche, foto, sync widget
+src/widgets/      layout dei due widget Android (2×2 e 4×2)
+plugins/          withWidgetExtras.js: tocco che apre l'app + anteprima nel selettore
 ```
 
 Il promemoria serale è una **notifica locale** pianificata: all'apertura dell'app si

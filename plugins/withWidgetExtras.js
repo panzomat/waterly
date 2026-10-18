@@ -133,10 +133,10 @@ ${[
       android:layout_height="wrap_content"
       android:orientation="vertical"
       android:gravity="center_horizontal">
-      <View
+      <ImageView
         android:layout_width="${dotSize}dp"
         android:layout_height="${dotSize}dp"
-        android:background="@drawable/piante_widget_dot_${d.kind}" />
+        android:src="@drawable/piante_widget_dot_${d.kind}" />
       <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -268,7 +268,7 @@ ${header(28, 12.5)}
         android:textSize="13.5sp"
         android:textStyle="bold" />
     </LinearLayout>
-    <View
+    <TextView
       android:layout_width="0dp"
       android:layout_height="1dp"
       android:layout_weight="1" />

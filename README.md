@@ -19,7 +19,8 @@ Toccando il widget si apre l'app.
 
 ## Installare l'app
 
-1. Copia `Waterly.apk` sul telefono (cavo USB, Google Drive, Telegram…).
+1. Copia `Waterly.apk` sul telefono (cavo USB, Google Drive, Telegram…), oppure
+   scaricalo dalla pagina **Releases** di questo repo.
 2. Aprilo dal telefono e consenti l'installazione da "origini sconosciute" se viene chiesto.
 3. Alla prima apertura vai su **Promemoria** → accendi **Notifica serale**.
 

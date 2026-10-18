@@ -189,7 +189,7 @@ export default function SettingsScreen() {
           <Text style={styles.statusText}>
             {scheduled === null
               ? 'Conteggio promemoria…'
-              : `${scheduled} notifiche programmate nei prossimi 30 giorni.`}
+              : `${scheduled} notifiche in programma.`}
           </Text>
         </View>
       </Card>

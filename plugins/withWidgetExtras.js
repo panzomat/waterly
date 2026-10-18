@@ -42,13 +42,17 @@ const INTERACTION_ACTION = 'expo.modules.widgets.ACTION_WIDGET_INTERACTION';
 
 // La widget info: quella generata da expo-widgets non si può toccare, quindi ne
 // scriviamo una nostra identica + previewLayout, e dal manifest ci puntiamo.
+// updatePeriodMillis a un'ora: il layout ricalcola da sé le frasi ("Oggi", "tra 3
+// giorni") a ogni disegno, ma senza periodo il sistema non lo ridisegna mai e resta
+// fermo su quello che l'app scrisse l'ultima volta. Mezz'ora è il minimo che Android
+// accetta, un'ora è un compromesso onesto per "il giorno dopo il widget è giusto".
 const widgetInfoXml = (widget) => `<?xml version="1.0" encoding="utf-8"?>
 <appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
   android:minWidth="${widget.minWidth}dp"
   android:minHeight="${widget.minHeight}dp"
   android:targetCellWidth="${widget.targetCellWidth}"
   android:targetCellHeight="${widget.targetCellHeight}"
-  android:updatePeriodMillis="0"
+  android:updatePeriodMillis="3600000"
   android:initialLayout="@layout/expo_widgets_initial_layout"
   android:description="@string/${snake(widget.name)}_description"
   android:previewLayout="@layout/${widget.preview}"

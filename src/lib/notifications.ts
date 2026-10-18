@@ -4,7 +4,8 @@ import { speciesById } from './species';
 import type { Plant, ReminderSettings } from './types';
 
 const CHANNEL_ID = 'annaffiature';
-const HOURS_AHEAD = 30;
+/** Giorni di promemoria pianificati in anticipo: si rigenerano a ogni apertura. */
+const HOURS_AHEAD = 90;
 
 /** Pulsanti nella notifica. Nell'id niente `:` né `-`: Android li rifiuta. */
 const CATEGORY = 'promemoria';

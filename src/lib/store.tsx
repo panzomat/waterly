@@ -1,4 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import * as Notifications from 'expo-notifications';
 import React, {
   createContext,
   useContext,
@@ -8,7 +9,13 @@ import React, {
 } from 'react';
 import { AppState } from 'react-native';
 import { todayYMD } from './date';
-import { scheduleReminders } from './notifications';
+import {
+  ACTION_LATER,
+  ACTION_WATER,
+  clearSnooze,
+  scheduleReminders,
+  snoozeReminder,
+} from './notifications';
 import { deletePhoto } from './photos';
 import type { Plant, ReminderSettings } from './types';
 import { syncWaterWidget } from './widget';
@@ -88,6 +95,36 @@ export function PlantProvider({ children }: { children: React.ReactNode }) {
     });
     return () => sub.remove();
   }, [plants, settings]);
+
+  // Pulsanti della notifica: "Annaffiata" e "Più tardi". Il tocco apre l'app,
+  // quindi la risposta si legge anche a freddo, con `getLastNotificationResponse`.
+  useEffect(() => {
+    if (!ready) return;
+    const handle = (r: Notifications.NotificationResponse) => {
+      const isWater = r.actionIdentifier === ACTION_WATER;
+      if (!isWater && r.actionIdentifier !== ACTION_LATER) return;
+      // Senza questo, la stessa risposta verrebbe rieseguita alla prossima apertura.
+      Notifications.clearLastNotificationResponse();
+      // Il tocco su un pulsante non fa sparire la notifica: la togliamo noi.
+      Notifications.dismissNotificationAsync(r.notification.request.identifier).catch(() => {});
+      const ids = (r.notification.request.content.data?.plantIds ?? []) as string[];
+      if (ids.length === 0) return;
+      if (isWater) {
+        clearSnooze();
+        const today = todayYMD();
+        setPlants((prev) =>
+          prev.map((p) => (ids.includes(p.id) ? { ...p, lastWatered: today } : p)),
+        );
+      } else {
+        const { title, body } = r.notification.request.content;
+        snoozeReminder(ids, title ?? 'Piante da annaffiare', body ?? '').catch(() => {});
+      }
+    };
+    const sub = Notifications.addNotificationResponseReceivedListener(handle);
+    const last = Notifications.getLastNotificationResponse();
+    if (last) handle(last);
+    return () => sub.remove();
+  }, [ready]);
 
   const value = useMemo<Store>(
     () => ({

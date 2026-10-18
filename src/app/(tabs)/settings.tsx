@@ -154,7 +154,7 @@ export default function SettingsScreen() {
               });
               return;
             }
-            await sendTestNotification();
+            await sendTestNotification(plants);
             showToast('Notifica di prova inviata: arriva tra 3 secondi.');
           }}
         />

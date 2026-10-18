@@ -1,25 +1,84 @@
 {
   "expo": {
-    "name": "plant-reminder-v2",
+    "name": "Waterly",
     "slug": "plant-reminder-v2",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
+    "scheme": "piante",
     "userInterfaceStyle": "light",
     "ios": {
       "supportsTablet": true
     },
     "android": {
+      "package": "com.piante.reminder",
       "adaptiveIcon": {
-        "backgroundColor": "#E6F4FE",
+        "backgroundColor": "#EAF5EC",
         "foregroundImage": "./assets/android-icon-foreground.png",
         "backgroundImage": "./assets/android-icon-background.png",
         "monochromeImage": "./assets/android-icon-monochrome.png"
       },
-      "predictiveBackGestureEnabled": false
+      "predictiveBackGestureEnabled": false,
+      "permissions": [
+        "android.permission.SCHEDULE_EXACT_ALARM"
+      ]
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "plugins": [
+      "./plugins/withWidgetExtras",
+      "expo-router",
+      [
+        "expo-image-picker",
+        {
+          "microphonePermission": false
+        }
+      ],
+      [
+        "expo-notifications",
+        {
+          "icon": "./assets/android-icon-monochrome.png",
+          "color": "#2F9E5F",
+          "defaultChannel": "annaffiature"
+        }
+      ],
+      [
+        "expo-widgets",
+        {
+          "enableAndroid": true,
+          "widgets": [
+            {
+              "name": "WaterWidget",
+              "displayName": "Annaffiature",
+              "description": "Chi annaffiare oggi e quando tocca di nuovo",
+              "ios": null,
+              "android": {
+                "minWidth": 110,
+                "minHeight": 110,
+                "targetCellWidth": 2,
+                "targetCellHeight": 2,
+                "resizeMode": "both",
+                "initialLayout": "src/widgets/WaterWidget.tsx"
+              }
+            },
+            {
+              "name": "WaterWidgetWide",
+              "displayName": "Annaffiature orizzontale",
+              "description": "Chi annaffiare oggi e quando tocca di nuovo, in una riga",
+              "ios": null,
+              "android": {
+                "minWidth": 250,
+                "minHeight": 110,
+                "targetCellWidth": 4,
+                "targetCellHeight": 2,
+                "resizeMode": "both",
+                "initialLayout": "src/widgets/WaterWidgetWide.tsx"
+              }
+            }
+          ]
+        }
+      ]
+    ]
   }
 }
